@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yh.springcloud.shop.order.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="Order">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="pnum" property="pnum" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="allColumnsWithOutId">
+        (uid,username,pid,price,pnum)
+    </sql>
+
+    <sql id="allColumns">
+        id,uid,username,pid,price,pnum
+    </sql>
+
+    <select id="getOrderById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM `order` WHERE id=#{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order`
+        <include refid="allColumnsWithOutId"/>
+        values (
+        #{uid,jdbcType=INTEGER},
+        #{username,jdbcType=VARCHAR},
+        #{pid,jdbcType=INTEGER},
+        #{price,jdbcType=DECIMAL},
+        #{pnum,jdbcType=INTEGER}
+        )
+    </insert>
+
+</mapper>

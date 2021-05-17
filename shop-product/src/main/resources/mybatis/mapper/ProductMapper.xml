@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yh.springcloud.shop.product.mapper.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="Product">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="stock" property="stock" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="allColumnsWithOutId">
+        (name,price,stock)
+    </sql>
+
+    <sql id="allColumns">
+        id,name,price,stock
+    </sql>
+
+    <select id="getProductById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM product WHERE id=#{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO product
+        <include refid="allColumnsWithOutId"/>
+        values (
+        #{name,jdbcType=VARCHAR},
+        #{price,jdbcType=DECIMAL},
+        #{stock,jdbcType=INTEGER}
+        )
+    </insert>
+
+</mapper>
