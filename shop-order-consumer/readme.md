@@ -1,0 +1,1 @@
+这个consumer是通过RestTemplate来调用Service Provider提供的服务的
